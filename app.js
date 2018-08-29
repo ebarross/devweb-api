@@ -9,11 +9,11 @@ const port = 8080;
 app.listen(port);
 console.log(`Servidor rodando na porta ${port}...`);
 
-var lista = [];
-app.get('/', function(req, res) {
-    res.send('Olá');
+app.use((req, res, next) => {
+    res.header('Content-type', 'application/json');
+    next();
 });
 
-app.get('/list', function(req, res) {
-    res.send(lista);
+app.get('/', function(req, res) {
+    res.send(JSON.stringify('Receiving GET request to /'));
 });
