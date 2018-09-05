@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const app = express();
 const port = 8080;
 
-const restaurante = require('./routes/restaurante');
+const restaurante = require('./restaurante/restaurante.route');
 
 app.listen(port);
 console.log(`Servidor rodando na porta ${port}...`);
