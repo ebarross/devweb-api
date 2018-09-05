@@ -6,28 +6,28 @@ router.use((req, res, next) => {
     next();
 });
 
+/*
+    os pedidos podem ser acessados tanto por clientes, quanto por restaurantes.
+    tratar isso com autorização a partir do tipo de usuário (cliente ou restaurante).
+*/
+
 router.get('/', (req, res) => {
-    console.log("GET /pedido");
     res.send("GET /pedido");
 });
 
 router.get('/:id', (req, res) => {
-    console.log(`GET /pedido/${req.params.id}`);
     res.send(`GET /pedido/${req.params.id}`);
 });
 
 router.post('/', (req, res) => {
-    console.log("POST /pedido");
     res.send("POST /pedido");
 });
 
 router.put('/:id', (req, res) => {
-    console.log(`PUT /pedido/${req.params.id}`);
     res.send(`PUT /pedido/${req.params.id}`);
 });
 
 router.delete('/:id', (req, res) => {
-    console.log(`DELETE /pedido/${req.params.id}`);
     res.send(`DELETE /pedido/${req.params.id}`);
 });
 

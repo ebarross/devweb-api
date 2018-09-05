@@ -2,10 +2,11 @@
 
 -usuario: login, senha 
   -funcionario: restaurante, nome, cnpj
-  -cliente: nome, cpf, telefone
--restaurante: nome, telefone, endereco, funcionarios, produtos
+  -cliente: nome, cpf, telefone, pedidos
+-restaurante: nome, telefone, endereco, statusRestaurante*, funcionarios, produtos, pedidos
 -produto: nome, decricao, valor
--pedido: produtos, status*, formaPagamento*, valorTotal
+-pedido: cliente, restaurante, produtos, statusPedido*, formaPagamento*, valorTotal
 
--*status: aguardando, cancelado, concluido
+-*statusRestaurante: aberto, fechado
+-*statusPedido: aguardando, cancelado, concluido
 -*formaPagamento: dinheiro, cartao

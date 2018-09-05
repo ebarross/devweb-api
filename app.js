@@ -6,6 +6,7 @@ const app = express();
 const port = 8080;
 
 const restaurante = require('./restaurante/restaurante.route');
+const pedido = require('./pedido/pedido.route');
 
 app.listen(port);
 console.log(`Servidor rodando na porta ${port}...`);
@@ -19,7 +20,7 @@ app.use((req, res, next) => {
 });
 
 app.get('/', (req, res) => {
-    res.send(JSON.stringify('Receiving GET request to /'));
+    res.send(JSON.stringify('Welcome to \'food pls\' API! :)'));
 });
 
 app.post('/', (req, res) => {
@@ -27,3 +28,6 @@ app.post('/', (req, res) => {
 });
 
 app.use('/restaurante', restaurante);
+app.use('/pedido', pedido);
+
+module.exports = app;
