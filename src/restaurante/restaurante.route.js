@@ -1,11 +1,6 @@
 const express = require('express');
 const router = express.Router();
 
-router.use((req, res, next) => {
-    console.log("Recurso: restaurante");
-    next();
-});
-
 // retorna todos os restaurantes
 router.get('/', (req, res) => {
     //res.send("GET /restaurante");
@@ -47,11 +42,11 @@ router.post('/:id/produto', (req, res) => {
 });
 
 router.put('/:idRestaurante/produto/:idProduto', (req, res) => {
-    
+
 });
 
 router.delete('/:idRestaurante/produto/:idProduto', (req, res) => {
-    
+
 });
 
 module.exports = router;

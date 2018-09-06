@@ -1,11 +1,6 @@
 const express = require('express');
 const router = express.Router();
 
-router.use((req, res, next) => {
-    console.log("Recurso: pedido");
-    next();
-});
-
 /*
     os pedidos podem ser acessados tanto por clientes, quanto por restaurantes.
     tratar isso com autorização a partir do tipo de usuário (cliente ou restaurante).

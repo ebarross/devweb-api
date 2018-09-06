@@ -3,21 +3,11 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 
 const app = express();
-const port = 8080;
 
-const restaurante = require('./restaurante/restaurante.route');
-const pedido = require('./pedido/pedido.route');
-
-app.listen(port);
-console.log(`Servidor rodando na porta ${port}...`);
-
-app.use(morgan('combined'));
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.json());
+app.use(express.static('../static'));
 app.use(bodyParser.json());
-app.use((req, res, next) => {
-    res.header('Content-type', 'application/json');
-    next();
-});
+app.use(morgan('tiny'));
 
 app.get('/', (req, res) => {
     res.send(JSON.stringify('Welcome to \'food pls\' API! :)'));
@@ -27,7 +17,13 @@ app.post('/', (req, res) => {
     res.end(JSON.stringify(req.body, null, 2));
 });
 
+const restaurante = require('./restaurante/restaurante.route');
+const pedido = require('./pedido/pedido.route');
+
 app.use('/restaurante', restaurante);
 app.use('/pedido', pedido);
+
+const port = process.env.port || 3000;
+app.listen(port, () => console.log(`Servidor rodando na porta ${port}...`));
 
 module.exports = app;
