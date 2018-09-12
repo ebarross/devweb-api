@@ -1,11 +1,15 @@
 const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
+const cache = require('memory-cache');
+
+//cache.put('foo', 'bar');
+//console.log(cache.get('foo'));
 
 const app = express();
 
 app.use(express.json());
-app.use(express.static('../static'));
+app.use('/static', express.static('../public'));
 app.use(bodyParser.json());
 app.use(morgan('tiny'));
 
@@ -24,6 +28,6 @@ app.use('/restaurante', restaurante);
 app.use('/pedido', pedido);
 
 const port = process.env.port || 3000;
-app.listen(port, () => console.log(`Servidor rodando na porta ${port}...`));
+app.listen(port, () => console.log(`Server is listening on port ${port}...`));
 
 module.exports = app;
