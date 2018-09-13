@@ -7,23 +7,23 @@ const router = express.Router();
 */
 
 router.get('/', (req, res) => {
-    res.send("GET /pedido");
+    res.send("GET /order");
 });
 
 router.get('/:id', (req, res) => {
-    res.send(`GET /pedido/${req.params.id}`);
+    res.send(`GET /order/${req.params.id}`);
 });
 
 router.post('/', (req, res) => {
-    res.send("POST /pedido");
+    res.send("POST /order");
 });
 
 router.put('/:id', (req, res) => {
-    res.send(`PUT /pedido/${req.params.id}`);
+    res.send(`PUT /order/${req.params.id}`);
 });
 
 router.delete('/:id', (req, res) => {
-    res.send(`DELETE /pedido/${req.params.id}`);
+    res.send(`DELETE /order/${req.params.id}`);
 });
 
 module.exports = router;
