@@ -21,35 +21,35 @@ router.delete('/:id', (req, res) => {
     res.send(`DELETE /restaurant/${req.params.id}`);
 });
 
-/* PRODUTOS */
+/* PRODUCTS */
 
 router.get('/:id/product', (req, res) => {
     res.send(`GET /restaurant/${req.params.id}/product`);
 });
 
-router.get('/:idRest/product/:idProduct', (req, res) => {
-    res.send(`GET /restaurant/${req.params.idRest}/product/${req.params.idProduct}`);
+router.get('/:restaurantID/product/:productID', (req, res) => {
+    res.send(`GET /restaurant/${req.params.restaurantID}/product/${req.params.productID}`);
 });
 
 router.post('/:id/product', (req, res) => {
 
 });
 
-router.put('/:idRest/product/:idProduct', (req, res) => {
+router.put('/:restaurantID/product/:productID', (req, res) => {
 
 });
 
-router.delete('/:idRest/product/:idProduct', (req, res) => {
+router.delete('/:restaurantID/product/:productID', (req, res) => {
 
 });
 
-/* PEDIDOS */
+/* ORDERS */
 
 router.get('/:id/order', (req, res) => {
 
 });
 
-router.get('/:idRest/order/:idOrder', (req, res) => {
+router.get('/:restaurantID/order/:orderID', (req, res) => {
 
 });
 

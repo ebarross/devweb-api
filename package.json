@@ -12,13 +12,14 @@
     "body-parser": "^1.18.3",
     "express": "^4.16.3",
     "memory-cache": "^0.2.0",
-    "mongodb-memory-server": "^2.1.0",
     "mongoose": "^5.2.14",
     "morgan": "^1.9.0",
+    "nodemon": "^1.18.4",
     "swagger-express": "^1.0.5",
     "swagger-ui-express": "^4.0.1"
   },
   "devDependencies": {
+    "mongodb-memory-server": "^2.2.0",
     "supertest": "^3.2.0"
   }
 }

@@ -1,9 +1,9 @@
--- Descrição do food pls --
+-- 'Food pls' description --
 
 -user: login, password 
-  -employee: restaurant, name, cnpj
+  -employee: name, restaurant
   -customer: name, cpf, phone, orders
--restaurant: name, phone, address, statusRestaurant*, employees, products, orders
+-restaurant: name, cnpj, phone, address, statusRestaurant*, employees, products, orders
 -product: name, description, value
 -order: customer, restaurant, products, statusOrder*, payment*, totalValue
 
