@@ -19,7 +19,6 @@
     "swagger-ui-express": "^4.0.1"
   },
   "devDependencies": {
-    "mongodb-memory-server": "^2.2.0",
     "supertest": "^3.2.0"
   }
 }
