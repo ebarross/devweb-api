@@ -3,7 +3,7 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const cache = require('memory-cache');
 
-// connection to mongodb memory server.
+// connection to mongodb server.
 const dbConnect = require('./config/database');
 dbConnect();
 

@@ -1,12 +1,13 @@
 -- 'Food pls' description --
 
 -user: login, password 
-  -employee: name, restaurant
+  -employee: name, cpf, restaurantID
   -customer: name, cpf, phone, orders
--restaurant: name, cnpj, phone, address, statusRestaurant*, employees, products, orders
--product: name, description, value
--order: customer, restaurant, products, statusOrder*, payment*, totalValue
+-restaurant: name, cnpj, phone, address*, statusRestaurant*, employees*, products*, orders*
+-product: name, description, imageSrc, value, restaurantID
+-order: customerID*, restaurantID*, products*, statusOrder*, payment*, address*, timeStamp, totalValue
 
+-*address: street, number, district, city, state
 -*statusRestaurant: open, closed
--*statusOrder: waiting, canceled, completed
+-*statusOrder: waiting, canceled, complete
 -*payment: money, card
