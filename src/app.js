@@ -12,12 +12,17 @@ dbConnect();
 
 const app = express();
 
-app.use(express.json());
+//app.use(express.json());
 app.use('/static', express.static('../public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(morgan('tiny'));
-
+/*
+app.use((req, res, next) => {
+    res.header('Content-type', 'application/json');
+    next();
+});
+*/
 app.get('/', (req, res) => {
     res.send(JSON.stringify('Welcome to \'food pls\' API! :)'));
 });

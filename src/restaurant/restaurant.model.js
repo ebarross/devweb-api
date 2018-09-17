@@ -9,10 +9,12 @@ const schema = new mongoose.Schema({
     },
     cpnj: {
         type: String,
+        max: 20,
         required: false
     },
     phone: {
         type: String,
+        max: 20,
         required: true
     },
     address: {
@@ -27,11 +29,11 @@ const schema = new mongoose.Schema({
     },
     products: [{
         type: mongoose.SchemaTypes.ObjectId,
-        required: true
+        ref: 'product'
     }],
     orders: [{
         type: mongoose.SchemaTypes.ObjectId,
-        required: true
+        ref: 'order'
     }]
 });
 
