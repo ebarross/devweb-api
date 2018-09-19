@@ -8,7 +8,7 @@ exports.get = (req, res) => {
         }
 
         if (restaurants.length === 0) {
-            res.status(204);
+            res.status(204).json(restaurants);
             return;
         }
 
