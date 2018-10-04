@@ -4,13 +4,7 @@ const address = require('../address/address.model');
 const schema = new mongoose.Schema({
     customer: {
         type: mongoose.SchemaTypes.ObjectId,
-        ref: 'customer',
-        required: true,
-    },
-    restaurant: {
-        type: mongoose.SchemaTypes.ObjectId,
-        ref: 'restaurant',
-        required: true,
+        ref: 'customer'
     },
     products: [{
         type: mongoose.SchemaTypes.ObjectId,
@@ -19,13 +13,11 @@ const schema = new mongoose.Schema({
     status: {
         type: String,
         enum: ['waiting', 'canceled', 'complete'],
-        default: 'waiting',
-        required: true
+        default: 'waiting'
     },
     payment: {
         type: String,
-        enum: ['money', 'card'],
-        required: true
+        enum: ['money', 'card']
     },
     address: {
         type: address.schema,
@@ -37,8 +29,9 @@ const schema = new mongoose.Schema({
     },
     totalValue: {
         type: Number,
-        required: true,
-        min: 0
+        min: 0,
+        default: 0,
+        required: true
     }
 });
 

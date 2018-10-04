@@ -5,10 +5,6 @@ const schema = new mongoose.Schema({
         type: mongoose.SchemaTypes.ObjectId,
         ref: 'user',
         required: true
-    },
-    restaurant: {
-        type: mongoose.SchemaTypes.ObjectId,
-        ref: 'restaurant'
     }
 });
 

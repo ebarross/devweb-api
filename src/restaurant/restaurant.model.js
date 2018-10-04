@@ -26,15 +26,7 @@ const schema = new mongoose.Schema({
         enum: ['open', 'closed'],
         default: 'closed',
         required: true
-    },
-    products: [{
-        type: mongoose.SchemaTypes.ObjectId,
-        ref: 'product'
-    }],
-    orders: [{
-        type: mongoose.SchemaTypes.ObjectId,
-        ref: 'order'
-    }]
+    }
 });
 
 const Restaurant = mongoose.model('restaurant', schema);

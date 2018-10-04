@@ -7,7 +7,6 @@ const schema = new mongoose.Schema({
     },
     number: {
         type: Number,
-        required: false,
         min: 1
     },
     district: {

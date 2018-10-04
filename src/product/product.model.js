@@ -7,22 +7,15 @@ const schema = new mongoose.Schema({
     },
     description: {
         type: String,
-        required: true,
         max: 100
     },
     image: {
-        type: String,
-        required: false
+        type: String
     },
     value: {
         type: Number,
         required: true,
         min: 0
-    },
-    restaurant: {
-        type: mongoose.SchemaTypes.ObjectId,
-        ref: 'restaurant',
-        required: true
     }
 });
 
