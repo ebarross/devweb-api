@@ -1,44 +1,39 @@
 const Restaurant = require('./restaurant.model');
 
-exports.get = (req, res) => {
-    Restaurant.find((err, restaurants) => {
-        if (err) {
-            res.status(400).json({ error: 'Error on getting restaurants.' });
-            return;
-        }
-
-        if (restaurants.length === 0) {
-            res.status(204).json(restaurants);
-            return;
-        }
+exports.get = async (req, res) => {
+    try {
+        let restaurants = await Restaurant.find();
+        if (restaurants.length === 0) return res.status(204).json(restaurants);
 
         res.status(200).json(restaurants);
-    });
+    } catch (err) {
+        res.status(400).json({ error: err });
+    }
 }
 
-exports.getById = (req, res) => {
-    Restaurant.findById(req.params.id, (err, restaurant) => {
-        if (err) {
-            res.status(400).json({ error: 'Restaurant not found.' });
-            return;
-        }
+exports.getById = async (req, res) => {
+    try {
+        const restaurant = await Restaurant.findById(req.params.id);
+
+        //if (!restaurant) return res.status(404).json({ error: 'Not found' });
 
         res.status(200).json(restaurant);
-    });
+    } catch (err) {
+        res.status(400).json({ error: err });
+    }
 };
 
-exports.post = (req, res) => {
-    Restaurant.create(req.body, (err, restaurant) => {
-        if (err) {
-            res.status(400).json({ error: 'Error on create restaurant.' });
-            return;
-        }
-
-        res.status(201).send(`Restaurante criado! ID: ${restaurant._id}`);
-    });
+exports.post = async (req, res) => {
+    try {
+        //const restaurant = req.body;
+        const restaurant = await Restaurant.create(req.body);
+        res.status(201).json({ restaurant });
+    } catch (err) {
+        res.status(400).json({ error: err });
+    }
 }
 
-exports.put = (req, res) => {
+exports.put = async (req, res) => {
     let newRestaurant = req.body;
 
     if (newRestaurant === {}) {
@@ -66,8 +61,14 @@ exports.put = (req, res) => {
     });
 }
 
-exports.delete = (req, res) => {
+exports.delete = async (req, res) => {
+    try {
+        const result = await Restaurant.findByIdAndRemove(req.params.id);
 
+        res.status(200).json(result);
+    } catch (err) {
+        res.status(400).json({ error: err });
+    }
 }
 
 module.exports = exports;

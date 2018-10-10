@@ -1,29 +1,20 @@
 const express = require('express');
 const router = express.Router();
+const service = require('./order.service');
 
 /*
     os pedidos podem ser acessados tanto por clientes, quanto por restaurantes.
     tratar isso com autorização a partir do tipo de usuário (cliente ou restaurante).
 */
 
-router.get('/', (req, res) => {
-    res.send("GET /order");
-});
+router.get('/', service.get);
 
-router.get('/:id', (req, res) => {
-    res.send(`GET /order/${req.params.id}`);
-});
+router.get('/:id', service.getById);
 
-router.post('/', (req, res) => {
-    res.send("POST /order");
-});
+router.post('/', service.post);
 
-router.put('/:id', (req, res) => {
-    res.send(`PUT /order/${req.params.id}`);
-});
+router.put('/:id', service.put);
 
-router.delete('/:id', (req, res) => {
-    res.send(`DELETE /order/${req.params.id}`);
-});
+router.delete('/:id', service.delete);
 
 module.exports = router;
