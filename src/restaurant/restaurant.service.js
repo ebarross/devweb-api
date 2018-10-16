@@ -2,7 +2,7 @@ const Restaurant = require('./restaurant.model');
 
 exports.get = async (req, res) => {
     try {
-        let restaurants = await Restaurant.find();
+        const restaurants = await Restaurant.find();
         if (restaurants.length === 0) return res.status(204).json(restaurants);
 
         res.status(200).json(restaurants);
@@ -56,7 +56,8 @@ exports.put = async (req, res) => {
 
 exports.delete = async (req, res) => {
     try {
-        const result = await Restaurant.findByIdAndRemove(req.params.id);
+        const id = req.params.id;
+        const result = await Restaurant.findByIdAndRemove(id);
 
         if (!result) return res.status(400).json({ error: 'Restaurant not found' });
 

@@ -1,15 +1,15 @@
 const express = require('express');
 const router = express.Router();
-const restaurantService = require('./restaurant.service');
+const service = require('./restaurant.service');
 
-router.get('/', restaurantService.get);
+router.get('/', service.get);
 
-router.get('/:id', restaurantService.getById);
+router.get('/:id', service.getById);
 
-router.post('/', restaurantService.post);
+router.post('/', service.post);
 
-router.put('/:id', restaurantService.put);
+router.put('/:id', service.put);
 
-router.delete('/:id', restaurantService.delete);
+router.delete('/:id', service.delete);
 
 module.exports = router;

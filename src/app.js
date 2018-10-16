@@ -5,6 +5,7 @@ const cors = require('cors');
 const cache = require('memory-cache');
 const port = process.env.PORT || 3000;
 const restaurant = require('./restaurant/restaurant.route');
+const product = require('./product/product.route');
 const order = require('./order/order.route');
 
 // connection to mongodb server.
@@ -37,6 +38,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/restaurant', cors(corsOptions), restaurant);
+app.use('/product', product);
 app.use('/order', order);
 
 app.listen(port, () => console.log(`Server is listening on port ${port}...`));
