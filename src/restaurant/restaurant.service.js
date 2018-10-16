@@ -15,7 +15,7 @@ exports.getById = async (req, res) => {
     try {
         const restaurant = await Restaurant.findById(req.params.id);
 
-        //if (!restaurant) return res.status(404).json({ error: 'Not found' });
+        if (!restaurant) return res.status(404).json({ error: 'Restaurant not found' });
 
         res.status(200).json(restaurant);
     } catch (err) {
@@ -25,45 +25,40 @@ exports.getById = async (req, res) => {
 
 exports.post = async (req, res) => {
     try {
-        //const restaurant = req.body;
         const restaurant = await Restaurant.create(req.body);
-        res.status(201).json({ restaurant });
+        res.status(201).json(restaurant);
     } catch (err) {
         res.status(400).json({ error: err });
     }
 }
 
 exports.put = async (req, res) => {
-    let newRestaurant = req.body;
+    try {
+        const newRestaurant = req.body;
 
-    if (newRestaurant === {}) {
-        res.status(400).json({ error: 'Restaurant required.' });
-        return;
-    }
+        const id = req.params.id;
 
-    const update = {
-        $set: {
-            name: newRestaurant.name,
-            cnpj: newRestaurant.cnpj,
-            phone: newRestaurant.phone,
-            address: newRestaurant.address,
-            status: newRestaurant.status
-        }
-    };
-
-    Restaurant.findByIdAndUpdate(req.params.id, update, (err, restaurant) => {
-        if (err) {
-            res.status(400).json({ error: 'Restaurant not found.' });
-            return;
-        }
+        const restaurant = await Restaurant.findByIdAndUpdate(id, {
+            $set: {
+                name: newRestaurant.name,
+                cnpj: newRestaurant.cnpj,
+                phone: newRestaurant.phone,
+                address: newRestaurant.address,
+                status: newRestaurant.status
+            }
+        }, { new: true });
 
         res.status(200).json(restaurant);
-    });
+    } catch (err) {
+        res.status(400).json({ error: err });
+    }
 }
 
 exports.delete = async (req, res) => {
     try {
         const result = await Restaurant.findByIdAndRemove(req.params.id);
+
+        if (!result) return res.status(400).json({ error: 'Restaurant not found' });
 
         res.status(200).json(result);
     } catch (err) {
