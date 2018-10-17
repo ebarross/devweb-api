@@ -6,8 +6,8 @@ exports.get = async (req, res) => {
         if (restaurants.length === 0) return res.status(204).json(restaurants);
 
         res.status(200).json(restaurants);
-    } catch (err) {
-        res.status(400).json({ error: err });
+    } catch (e) {
+        res.status(400).json({ error: e.message });
     }
 }
 
@@ -18,8 +18,8 @@ exports.getById = async (req, res) => {
         if (!restaurant) return res.status(404).json({ error: 'Restaurant not found' });
 
         res.status(200).json(restaurant);
-    } catch (err) {
-        res.status(400).json({ error: err });
+    } catch (e) {
+        res.status(400).json({ error: e.message });
     }
 };
 
@@ -27,8 +27,8 @@ exports.post = async (req, res) => {
     try {
         const restaurant = await Restaurant.create(req.body);
         res.status(201).json(restaurant);
-    } catch (err) {
-        res.status(400).json({ error: err });
+    } catch (e) {
+        res.status(400).json({ error: e.message });
     }
 }
 
@@ -49,8 +49,8 @@ exports.put = async (req, res) => {
         }, { new: true });
 
         res.status(200).json(restaurant);
-    } catch (err) {
-        res.status(400).json({ error: err });
+    } catch (e) {
+        res.status(400).json({ error: e.message });
     }
 }
 
@@ -62,8 +62,8 @@ exports.delete = async (req, res) => {
         if (!result) return res.status(400).json({ error: 'Restaurant not found' });
 
         res.status(200).json(result);
-    } catch (err) {
-        res.status(400).json({ error: err });
+    } catch (e) {
+        res.status(400).json({ error: e.message });
     }
 }
 

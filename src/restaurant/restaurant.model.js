@@ -5,16 +5,17 @@ const schema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
-        max: 100
+        minlength: 5,
+        maxlength: 255
     },
     cpnj: {
         type: String,
-        max: 20,
-        required: false
+        maxlength: 20
     },
     phone: {
         type: String,
-        max: 20,
+        minlength: 8,
+        maxlength: 20,
         required: true
     },
     address: {
@@ -24,6 +25,7 @@ const schema = new mongoose.Schema({
     status: {
         type: String,
         enum: ['open', 'closed'],
+        lowercase: true,
         default: 'closed',
         required: true
     }

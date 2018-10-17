@@ -2,13 +2,13 @@ const Product = require('./product.model');
 
 exports.get = async (req, res) => {
     try {
-        const products = await Product.find();
+        const products = await Product.find().find('name');
 
         if (products.length === 0) return res.status(204).json(products);
 
         res.status(200).json(products);
-    } catch (err) {
-        res.status(400).json({ error: err });
+    } catch (e) {
+        res.status(400).json({ error: e.message });
     }
 }
 
@@ -19,8 +19,8 @@ exports.getById = async (req, res) => {
         if (!product) return res.status(404).json({ error: 'Product not found' });
 
         res.status(200).json(product);
-    } catch (err) {
-        res.status(400).json({ error: err });
+    } catch (e) {
+        res.status(400).json({ error: e.message });
     }
 }
 
@@ -28,8 +28,8 @@ exports.post = async (req, res) => {
     try {
         const product = await Product.create(req.body);
         res.status(201).json(product);
-    } catch (err) {
-        res.status(400).json({ error: err });
+    } catch (e) {
+        res.status(400).json({ error: e.message });
     }
 }
 
@@ -50,8 +50,8 @@ exports.put = async (req, res) => {
         if (!product) return res.status(404).json({ error: 'Product not found' });
 
         res.status(200).json(product);
-    } catch (err) {
-        res.status(400).json({ error: err });
+    } catch (e) {
+        res.status(400).json({ error: e.message });
     }
 }
 
@@ -63,8 +63,8 @@ exports.delete = async (req, res) => {
         if (!result) return res.status(404).json({ error: 'Product not found' });
 
         res.status(200).json(result);
-    } catch (err) {
-        res.status(400).json({ error: err });
+    } catch (e) {
+        res.status(400).json({ error: e.message });
     }
 }
 

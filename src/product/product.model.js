@@ -3,11 +3,12 @@ const mongoose = require('mongoose');
 const schema = new mongoose.Schema({
     name: {
         type: String,
+        maxlength: 100,
         required: true,
     },
     description: {
         type: String,
-        max: 100
+        maxlength: 255
     },
     image: {
         type: String
