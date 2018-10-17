@@ -3,6 +3,8 @@ const mongoose = require('mongoose');
 const schema = new mongoose.Schema({
     street: {
         type: String,
+        minlength: 5,
+        maxlength: 255,
         required: true
     },
     number: {
@@ -12,20 +14,23 @@ const schema = new mongoose.Schema({
     district: {
         type: String,
         required: true,
-        max: 30
+        minlength: 3,
+        maxlength: 50
     },
     city: {
         type: String,
         required: true,
-        max: 30
+        minlength: 3,
+        maxlength: 100
     },
     state: {
         type: String,
         required: true,
-        max: 2
+        minlength: 2,
+        maxlength: 2
     }
 });
 
-const Address = mongoose.model('address', schema);
+const Address = mongoose.model('Address', schema);
 
 module.exports = Address;

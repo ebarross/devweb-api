@@ -9,8 +9,7 @@ const product = require('./product/product.route');
 const order = require('./order/order.route');
 
 // connection to mongodb server.
-const dbConnect = require('./config/database');
-dbConnect();
+require('./config/database')();
 
 //cache.put('foo', 'bar');
 //console.log(cache.get('foo'));
@@ -27,12 +26,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use('/static', express.static('../public'));
 app.use(cors());
 app.use(morgan('tiny'));
-/*
-app.use((req, res, next) => {
-    res.header('Content-type', 'application/json');
-    next();
-});
-*/
+
 app.get('/', (req, res) => {
     res.send(JSON.stringify('Welcome to \'food pls\' API! :)'));
 });
