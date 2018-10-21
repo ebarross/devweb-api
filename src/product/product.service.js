@@ -1,8 +1,8 @@
-const Product = require('./product.model');
+const { Product, validate } = require('./product.model');
 
-exports.get = async (req, res) => {
+exports.find = async (req, res) => {
     try {
-        const products = await Product.find().find('name');
+        const products = await Product.find().sort('name').select('-__v');
 
         if (products.length === 0) return res.status(204).json(products);
 
@@ -12,7 +12,7 @@ exports.get = async (req, res) => {
     }
 }
 
-exports.getById = async (req, res) => {
+exports.findById = async (req, res) => {
     try {
         const product = await Product.findById(req.params.id);
 
@@ -24,7 +24,10 @@ exports.getById = async (req, res) => {
     }
 }
 
-exports.post = async (req, res) => {
+exports.create = async (req, res) => {
+    const { error } = validate(req.body);
+    if (error) return res.status(400).json({ error: error.details[0].message });
+
     try {
         const product = await Product.create(req.body);
         res.status(201).json(product);
@@ -33,17 +36,20 @@ exports.post = async (req, res) => {
     }
 }
 
-exports.put = async (req, res) => {
-    try {
-        const newProduct = req.body;
-        const id = req.params.id;
+exports.update = async (req, res) => {
+    const { error } = validate(req.body);
+    if (error) return res.status(400).json({ error: error.details[0].message });
 
-        const product = await Product.findByIdAndUpdate(id, {
+    let product = req.body;
+    const id = req.params.id;
+
+    try {
+        product = await Product.findByIdAndUpdate(id, {
             $set: {
-                name: newProduct.name,
-                description: newProduct.description,
-                image: newProduct.image,
-                value: newProduct.value
+                name: product.name,
+                description: product.description,
+                image: product.image,
+                value: product.value
             }
         }, { new: true });
 
@@ -55,7 +61,7 @@ exports.put = async (req, res) => {
     }
 }
 
-exports.delete = async (req, res) => {
+exports.remove = async (req, res) => {
     try {
         const id = req.params.id;
         const result = await Product.findByIdAndRemove(id);

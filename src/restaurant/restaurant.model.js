@@ -1,12 +1,13 @@
+const Joi = require('joi');
 const mongoose = require('mongoose');
 const address = require('../address/address.model');
 
 const schema = new mongoose.Schema({
     name: {
         type: String,
-        required: true,
         minlength: 5,
-        maxlength: 255
+        maxlength: 255,
+        required: true
     },
     cpnj: {
         type: String,
@@ -26,11 +27,23 @@ const schema = new mongoose.Schema({
         type: String,
         enum: ['open', 'closed'],
         lowercase: true,
-        default: 'closed',
-        required: true
+        default: 'closed'
     }
 });
 
 const Restaurant = mongoose.model('Restaurant', schema);
 
-module.exports = Restaurant;
+function validate(restaurant) {
+    const schema = {
+        name: Joi.string().min(5).max(255).required(),
+        cnpj: Joi.string().max(20),
+        phone: Joi.string().min(8).max(20).required(),
+        // TO DO address
+        address: Joi.required(),
+        status: Joi.string()
+    };
+
+    return Joi.validate(restaurant, schema);
+}
+
+module.exports = { Restaurant, validate };

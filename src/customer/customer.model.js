@@ -8,17 +8,33 @@ const schema = new mongoose.Schema({
     },
     cpf: {
         type: String,
-        max: 14,
+        minlength: 14,
+        maxlength: 14,
         required: true
     },
     phone: {
         type: String,
-        max: 20,
+        minlength: 8,
+        maxlength: 20,
         required: true
     },
     orders: [{
-        type: mongoose.SchemaTypes.ObjectId,
-        ref: 'order'
+        type: new mongoose.Schema({
+            payment: {
+                type: String,
+                enum: ['money', 'card']
+            },
+            time: {
+                type: Date,
+                required: true
+            },
+            totalValue: {
+                type: Number,
+                min: 0,
+                default: 0,
+                required: true
+            }
+        })
     }]
 });
 

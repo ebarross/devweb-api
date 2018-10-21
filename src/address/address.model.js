@@ -13,21 +13,21 @@ const schema = new mongoose.Schema({
     },
     district: {
         type: String,
-        required: true,
         minlength: 3,
-        maxlength: 50
+        maxlength: 50,
+        required: true
     },
     city: {
         type: String,
-        required: true,
         minlength: 3,
-        maxlength: 100
+        maxlength: 100,
+        required: true
     },
     state: {
         type: String,
-        required: true,
         minlength: 2,
-        maxlength: 2
+        maxlength: 2,
+        required: true
     }
 });
 

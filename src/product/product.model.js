@@ -1,8 +1,10 @@
 const mongoose = require('mongoose');
+const Joi = require('joi');
 
 const schema = new mongoose.Schema({
     name: {
         type: String,
+        minlength: 5,
         maxlength: 100,
         required: true,
     },
@@ -15,11 +17,23 @@ const schema = new mongoose.Schema({
     },
     value: {
         type: Number,
-        required: true,
-        min: 0
+        min: 0,
+        max: 1000,
+        required: true
     }
 });
 
 const Product = mongoose.model('Product', schema);
 
-module.exports = Product;
+function validate(product) {
+    const schema = {
+        name: Joi.string().min(5).max(100).required(),
+        description: Joi.string().max(255),
+        image: Joi.string(),
+        value: Joi.number().min(0).max(1000).required()
+    }
+
+    return Joi.validate(product, schema);
+}
+
+module.exports = { Product, validate };
