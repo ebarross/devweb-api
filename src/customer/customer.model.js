@@ -40,4 +40,4 @@ const schema = new mongoose.Schema({
 
 const Customer = mongoose.model('Customer', schema);
 
-module.exports = Customer;
+module.exports = { Customer };

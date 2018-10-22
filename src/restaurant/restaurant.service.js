@@ -1,4 +1,5 @@
 const { Restaurant, validate } = require('./restaurant.model');
+const { validateAddress } = require('../address/address.model');
 
 exports.find = async (req, res) => {
     try {
@@ -27,6 +28,10 @@ exports.create = async (req, res) => {
     const { error } = validate(req.body);
     if (error) return res.status(400).json({ error: error.details[0].message });
 
+    const validationAddress = validateAddress(req.body.address);
+    const errorAddress = validationAddress.error;
+    if (errorAddress) return res.status(400).json({ error: errorAddress.details[0].message });
+
     try {
         const restaurant = await Restaurant.create(req.body);
         res.status(201).json(restaurant);
@@ -38,6 +43,10 @@ exports.create = async (req, res) => {
 exports.update = async (req, res) => {
     const { error } = validate(req.body);
     if (error) return res.status(400).json({ error: error.details[0].message });
+
+    const validationAddress = validateAddress(req.body.address);
+    const errorAddress = validationAddress.error;
+    if (errorAddress) return res.status(400).json({ error: errorAddress.details[0].message });
 
     let restaurant = req.body;
     const id = req.params.id;

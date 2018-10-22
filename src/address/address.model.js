@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
+const Joi = require('joi');
 
-const schema = new mongoose.Schema({
+const addressSchema = new mongoose.Schema({
     street: {
         type: String,
         minlength: 5,
@@ -31,6 +32,18 @@ const schema = new mongoose.Schema({
     }
 });
 
-const Address = mongoose.model('Address', schema);
+const Address = mongoose.model('Address', addressSchema);
 
-module.exports = Address;
+function validate(address) {
+    const schema = {
+        street: Joi.string().min(5).max(255).required(),
+        number: Joi.number().min(1),
+        district: Joi.string().min(3).max(50).required(),
+        city: Joi.string().min(3).max(100).required(),
+        state: Joi.string().min(2).max(2).required()
+    }
+
+    return Joi.validate(address, schema);
+}
+
+module.exports = { Address, addressSchema, validateAddress: validate };

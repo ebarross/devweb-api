@@ -1,6 +1,6 @@
 const Joi = require('joi');
 const mongoose = require('mongoose');
-const address = require('../address/address.model');
+const { addressSchema } = require('../address/address.model');
 
 const schema = new mongoose.Schema({
     name: {
@@ -20,7 +20,7 @@ const schema = new mongoose.Schema({
         required: true
     },
     address: {
-        type: address.schema,
+        type: addressSchema,
         required: true
     },
     status: {
@@ -38,7 +38,6 @@ function validate(restaurant) {
         name: Joi.string().min(5).max(255).required(),
         cnpj: Joi.string().max(20),
         phone: Joi.string().min(8).max(20).required(),
-        // TO DO address
         address: Joi.required(),
         status: Joi.string()
     };

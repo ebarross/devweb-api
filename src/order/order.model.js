@@ -1,47 +1,32 @@
 const mongoose = require('mongoose');
-const address = require('../address/address.model');
+const { addressSchema } = require('../address/address.model');
+const Joi = require('joi');
+Joi.objectId = require('joi-objectid')(Joi);
 
 const schema = new mongoose.Schema({
-    customer: {
+    customerId: {
         type: mongoose.SchemaTypes.ObjectId,
-        ref: 'Customer'
+        ref: 'Customer',
+        required: true
     },
-    /* products: [{
+    products: [{
         type: mongoose.SchemaTypes.ObjectId,
         ref: 'Product'
-    }], */
-    products: [{
-        type: new mongoose.Schema({
-            name: {
-                type: String,
-                minlength: 5,
-                maxlength: 100,
-                required: true,
-            },
-            description: {
-                type: String,
-                maxlength: 255
-            },
-            value: {
-                type: Number,
-                required: true,
-                min: 0,
-                max: 1000
-            }
-        }),
-        required: true
     }],
     status: {
         type: String,
         enum: ['waiting', 'canceled', 'complete'],
+        lowercase: true,
         default: 'waiting'
     },
     payment: {
         type: String,
-        enum: ['money', 'card']
+        enum: ['money', 'card'],
+        lowercase: true,
+        required: true
     },
-    address: {
-        type: address.schema,
+    deliveryAddress: {
+        type: addressSchema,
         required: true
     },
     time: {
@@ -59,4 +44,16 @@ const schema = new mongoose.Schema({
 
 const Order = mongoose.model('Order', schema);
 
-module.exports = Order;
+function validate(order) {
+    const schema = {
+        customerId: Joi.objectId().required(),
+        products: Joi.array().items(Joi.objectId()).required(),
+        status: Joi.string(),
+        payment: Joi.string().required(),
+        deliveryAddress: Joi.required()
+    }
+
+    return Joi.validate(order, schema);
+}
+
+module.exports = { Order, validate };

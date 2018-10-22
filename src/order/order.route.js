@@ -1,20 +1,16 @@
 const express = require('express');
 const router = express.Router();
 const service = require('./order.service');
+const validateObjectId = require('../util/validateObjectId');
 
-/*
-    os pedidos podem ser acessados tanto por clientes, quanto por restaurantes.
-    tratar isso com autorização a partir do tipo de usuário (cliente ou restaurante).
-*/
+router.get('/', service.find);
 
-router.get('/', service.get);
+router.get('/:id', validateObjectId, service.findById);
 
-router.get('/:id', service.getById);
+router.post('/', service.create);
 
-router.post('/', service.post);
+router.put('/:id', validateObjectId, service.update);
 
-router.put('/:id', service.put);
-
-router.delete('/:id', service.delete);
+router.delete('/:id', validateObjectId, service.remove);
 
 module.exports = router;
