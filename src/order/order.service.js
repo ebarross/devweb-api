@@ -8,7 +8,6 @@ exports.find = async (req, res) => {
         const orders = await Order
             .find()
             .populate('customer')
-            .populate('products', '-_id -image -__v')
             .select('-__v');
 
         if (orders.length === 0) return res.status(204).json(orders);
@@ -24,7 +23,6 @@ exports.findById = async (req, res) => {
         const order = await Order
             .findById(req.params.id)
             .populate('customer')
-            .populate('products', '-_id -image -__v')
             .select('-__v');
 
         if (!order) return res.status(404).json({ error: 'Order not found' });
@@ -47,7 +45,18 @@ exports.create = async (req, res) => {
         // const customer = await Customer.find(req.body.customerId);
         // if (!customer) return res.status(400).json({ error: 'Invalid customer' });
 
-        const order = await Order.create(req.body);
+        let order = req.body;
+        let products = order.products.map((product) => {
+            product = {
+                _id: product._id,
+                name: product.name,
+                value: product.value
+            };
+            return product;
+        });
+        console.log(products);
+
+        order = await Order.create(order);
 
         res.status(200).json(order);
 
