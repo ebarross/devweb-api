@@ -46,24 +46,33 @@ exports.create = async (req, res) => {
         // if (!customer) return res.status(400).json({ error: 'Invalid customer' });
 
         let order = req.body;
-        let products = order.products.map((product) => {
+        /* order.products.map((product) => {
             product = {
                 _id: product._id,
                 name: product.name,
                 value: product.value
             };
             return product;
+        }); */
+
+        const orderProducts = order.products.map(async (productId) => {
+            const product = await Product.findById(productId).select('_id name value');
+            return product;
         });
-        console.log(products);
+        const products = await Promise.all(orderProducts);
+        order.products = products;
 
         order = await Order.create(order);
-
         res.status(200).json(order);
-
     } catch (e) {
         res.status(400).json({ error: e.message });
     }
 };
+
+getProductData = async (productId) => {
+    const product = await Product.findById(productId).select('_id name value');
+    return product;
+}
 
 exports.update = async (req, res) => {
     const { error } = validate(req.body);
@@ -95,5 +104,13 @@ exports.update = async (req, res) => {
 };
 
 exports.remove = async (req, res) => {
+    try {
+        const result = await Order.findByIdAndRemove(req.params.id);
 
+        if (!result) return res.status(404).json({ error: 'Order not found' });
+
+        res.status(200).json(result);
+    } catch (e) {
+        res.status(400).json({ error: e.message });
+    }
 };
