@@ -55,11 +55,11 @@ exports.create = async (req, res) => {
             return product;
         }); */
 
-        const orderProducts = order.products.map(async (productId) => {
+        const orderPromises = order.products.map(async (productId) => {
             const product = await Product.findById(productId).select('_id name value');
             return product;
         });
-        const products = await Promise.all(orderProducts);
+        const products = await Promise.all(orderPromises);
         order.products = products;
 
         order = await Order.create(order);

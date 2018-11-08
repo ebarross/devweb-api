@@ -7,6 +7,8 @@ const port = process.env.PORT || 3000;
 const restaurant = require('./restaurant/restaurant.route');
 const product = require('./product/product.route');
 const order = require('./order/order.route');
+const user = require('./user/user.route');
+const auth = require('./auth/auth.route');
 
 // connection to mongodb server.
 require('./config/database')();
@@ -34,6 +36,8 @@ app.get('/', (req, res) => {
 app.use('/restaurant', cors(corsOptions), restaurant);
 app.use('/product', product);
 app.use('/order', order);
+app.use('/user', user);
+app.use('/auth', auth);
 
 app.listen(port, () => console.log(`Server is listening on port ${port}...`));
 
