@@ -3,15 +3,15 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const cache = require('memory-cache');
-const port = process.env.PORT || 3000;
-const restaurant = require('./restaurant/restaurant.route');
-const product = require('./product/product.route');
-const order = require('./order/order.route');
-const user = require('./user/user.route');
-const auth = require('./auth/auth.route');
+const port = process.env.PORT || 8080;
+const restaurant = require('./src/restaurant/restaurant.route');
+const product = require('./src/product/product.route');
+const order = require('./src/order/order.route');
+const user = require('./src/user/user.route');
+const auth = require('./src/auth/auth.route');
 
 // connection to mongodb server.
-require('./config/database')();
+require('./src/config/database')();
 
 //cache.put('foo', 'bar');
 //console.log(cache.get('foo'));
