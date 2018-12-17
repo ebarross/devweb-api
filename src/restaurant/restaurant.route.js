@@ -1,16 +1,18 @@
 const express = require('express');
 const router = express.Router();
 const service = require('./restaurant.service');
-const validateObjectId = require('../util/validateObjectId');
+const validateObjectId = require('../middleware/validateObjectId');
+const auth = require('../middleware/auth');
+const admin = require('../middleware/admin');
 
-router.get('/', service.find);
+router.get('/', [auth, admin], service.find);
 
-router.get('/:id', validateObjectId, service.findById);
+router.get('/:id', [auth, admin, validateObjectId], service.findById);
 
-router.post('/', service.create);
+router.post('/', [auth, admin], service.create);
 
-router.put('/:id', validateObjectId, service.update);
+router.put('/:id', [auth, admin, validateObjectId], service.update);
 
-router.delete('/:id', validateObjectId, service.remove);
+router.delete('/:id', [auth, admin, validateObjectId], service.remove);
 
 module.exports = router;

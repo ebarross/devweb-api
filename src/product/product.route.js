@@ -1,16 +1,17 @@
 const express = require('express');
 const router = express.Router();
 const service = require('./product.service');
-const validateObjectId = require('../util/validateObjectId');
+const validateObjectId = require('../middleware/validateObjectId');
+const auth = require('../middleware/auth');
 
-router.get('/', service.find);
+router.get('/', auth, service.find);
 
-router.get('/:id', validateObjectId, service.findById);
+router.get('/:id', [auth, validateObjectId], service.findById);
 
-router.post('/', service.create);
+router.post('/', auth, service.create);
 
-router.put('/:id', validateObjectId, service.update);
+router.put('/:id', [auth, validateObjectId], service.update);
 
-router.delete('/:id', validateObjectId, service.remove);
+router.delete('/:id', [auth, validateObjectId], service.remove);
 
 module.exports = router;

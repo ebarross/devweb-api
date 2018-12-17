@@ -4,7 +4,7 @@ const { validateAddress } = require('../address/address.model');
 exports.find = async (req, res) => {
     try {
         const restaurants = await Restaurant.find();
-        if (restaurants.length === 0) return res.status(204).json(restaurants);
+        if (restaurants.length === 0) return res.status(204);
 
         res.status(200).json(restaurants);
     } catch (e) {

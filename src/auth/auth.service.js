@@ -1,7 +1,6 @@
 const { User } = require('../user/user.model');
 const bcrypt = require('bcrypt');
 const Joi = require('joi');
-const jwt = require('jsonwebtoken');
 
 exports.authenticate = async (req, res) => {
     const { error } = validate(req.body);
@@ -14,9 +13,10 @@ exports.authenticate = async (req, res) => {
         const validPassword = await bcrypt.compare(req.body.password, user.password);
         if (!validPassword) return res.status(400).json({ error: 'Incorrect email or password.' });
 
-        const token = jwt.sign({ _id: user._id }, 'foodPlsSecret'); // change this secret to env variable
+        const token = user.generateAuthToken();
 
-        res.header('x-auth-token', token).end();
+        // res.header('x-auth-token', token).end();
+        res.send({ token });
     } catch (e) {
         res.status(400).json({ error: e.message });
     }

@@ -2,6 +2,29 @@ const { User, validate } = require('./user.model');
 const _ = require('lodash');
 const bcrypt = require('bcrypt');
 
+exports.find = async (req, res) => {
+    try {
+        const users = await User.find();
+        if (users.length === 0) return res.status(204);
+
+        res.status(200).json(users);
+    } catch (e) {
+        res.status(400).json({ error: e.message });
+    }
+}
+
+exports.findById = async (req, res) => {
+    try {
+        const user = await User.findById(req.params.id);
+
+        if (!user) return res.status(404).json({ error: 'User not found.' });
+
+        res.status(200).json(user);
+    } catch (e) {
+        res.status(400).json({ error: e.message });
+    }
+}
+
 exports.create = async (req, res) => {
     const { error } = validate(req.body);
     if (error) return res.status(400).json({ error: error.details[0].message });
@@ -21,3 +44,17 @@ exports.create = async (req, res) => {
         res.status(400).json({ error: e.message });
     }
 };
+
+exports.getCurrent = async (req, res) => {
+    try {
+        const user = await User.findById(req.user._id).select('-password');
+        return res.status(200).json(user);
+    } catch (e) {
+        res.status(400).json({ error: e.message });
+    }
+
+}
+
+exports.update = async (req, res) => {
+
+}
