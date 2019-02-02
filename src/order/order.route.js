@@ -6,12 +6,12 @@ const auth = require('../middleware/auth');
 
 router.get('/', auth, service.find);
 
-router.get('/:id', [auth, validateObjectId], service.findById);
+router.get('/:id', [validateObjectId, auth], service.findById);
 
 router.post('/', auth, service.create);
 
-router.put('/:id', [auth, validateObjectId], service.update);
+router.put('/:id', [validateObjectId, auth], service.update);
 
-router.delete('/:id', [auth, validateObjectId], service.remove);
+router.delete('/:id', [validateObjectId, auth], service.remove);
 
 module.exports = router;

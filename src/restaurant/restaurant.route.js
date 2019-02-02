@@ -7,12 +7,12 @@ const admin = require('../middleware/admin');
 
 router.get('/', [auth, admin], service.find);
 
-router.get('/:id', [auth, admin, validateObjectId], service.findById);
+router.get('/:id', [validateObjectId, auth, admin], service.findById);
 
 router.post('/', [auth, admin], service.create);
 
-router.put('/:id', [auth, admin, validateObjectId], service.update);
+router.put('/:id', [validateObjectId, auth, admin], service.update);
 
-router.delete('/:id', [auth, admin, validateObjectId], service.remove);
+router.delete('/:id', [validateObjectId, auth, admin], service.remove);
 
 module.exports = router;

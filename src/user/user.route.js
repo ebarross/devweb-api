@@ -9,7 +9,7 @@ router.get('/', [auth, admin], service.find);
 
 router.get('/me', auth, service.getCurrent);
 
-router.get('/:id', [auth, admin, validateObjectId], service.findById);
+router.get('/:id', [validateObjectId, auth, admin], service.findById);
 
 router.post('/', service.create);
 
